@@ -12,11 +12,11 @@ namespace MedicappApi.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  public class UsuarioController : ControllerBase
+  public class UsuariosController : ControllerBase
   {
     private readonly AppDbContext _context;
 
-    public UsuarioController(AppDbContext context)
+    public UsuariosController(AppDbContext context)
     {
       _context = context;
     }

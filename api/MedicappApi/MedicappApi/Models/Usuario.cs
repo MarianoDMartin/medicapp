@@ -7,9 +7,7 @@ namespace MedicappApi.Models
     [Key]
     public int Id { get; set; }
 
-    public string Descripcion { get; set; }
-
-    public string Mail { get; set; }
+    public string Email { get; set; }
 
     public string Password { get; set; }
 
@@ -17,6 +15,16 @@ namespace MedicappApi.Models
 
     public string Apellido { get; set; }
 
-    //public Direccion Direccion { get; set; }
+    public string Calle { get; set; }
+
+    public int Numero { get; set; }
+
+    public int CodigoPostal { get; set; }
+
+    public string Provincia { get; set; }
+
+    public string Telefono { get; set; }
+
+    public string Telefono2 { get; set; }
   }
 }

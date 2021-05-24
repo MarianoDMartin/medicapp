@@ -19,10 +19,17 @@ namespace MedicappApi.Controllers
 
     // POST api/<UsuarioController>
     [HttpPost]
-    public Usuario Post([FromBody] Usuario usuarioLogin)
+    public ActionResult Post([FromBody] Usuario usuarioLogin)
     {
-      var usuario = _context.Usuario.FirstOrDefault(x => x.Mail == usuarioLogin.Mail && x.Password == usuarioLogin.Password);
-      return usuario;
+      var usuario = _context.Usuario.FirstOrDefault(x => x.Email == usuarioLogin.Email && x.Password == usuarioLogin.Password);
+      if (usuario != null)
+      {
+        return Ok(usuario);
+      }
+      else
+      {
+        return NotFound(null);
+      }         
     }
   }
 }
