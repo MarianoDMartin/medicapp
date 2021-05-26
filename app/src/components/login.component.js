@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -8,10 +8,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useHistory } from 'react-router-dom';
 //import Image from "material-ui-image";
 
 function Copyright() {
@@ -54,6 +54,35 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  let history = useHistory();
+  
+  const [loginData, setLoginData] = useState({});
+
+  function loginCall(){
+    const data = {
+      email: "mariano.d.martin@gmail.com",
+      password: "password"
+    }
+    fetch("http://localhost:5000/api/usuarios")
+      .then(res => res.json())
+      .then(
+        result => {
+          setLoginData({
+            data: result,
+            isSuccess: true
+          });
+        },
+        error => {
+          setLoginData({error})
+        }
+      );
+  }
+
+  useEffect(()=>{
+    if(loginData.isSuccess){
+      history.push("/profile", {userData:loginData.data[0]});
+    }
+  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -89,11 +118,11 @@ export default function SignIn() {
             label="Recordarme"
           />
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={loginCall}
           >
             Ingresar
           </Button>
