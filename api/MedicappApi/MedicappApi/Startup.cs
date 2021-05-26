@@ -33,6 +33,7 @@ namespace MedicappApi
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "MedicappApi", Version = "v1" });
       });
+      services.AddCors();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +47,7 @@ namespace MedicappApi
       }
 
       app.UseRouting();
+      app.UseCors(p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
       app.UseAuthorization();
 
