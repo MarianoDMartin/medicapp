@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
+import Alert from '@material-ui/lab/Alert';
 //import Image from "material-ui-image";
 
 function Copyright() {
@@ -57,13 +58,20 @@ export default function SignIn() {
   let history = useHistory();
   
   const [loginData, setLoginData] = useState({});
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   function loginCall(){
+    debugger;
     const data = {
-      email: "mariano.d.martin@gmail.com",
-      password: "password"
+      email,
+      password
     }
-    fetch("http://localhost:5000/api/usuarios")
+    fetch("http://localhost:5000/api/login", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
       .then(res => res.json())
       .then(
         result => {
@@ -80,7 +88,7 @@ export default function SignIn() {
 
   useEffect(()=>{
     if(loginData.isSuccess){
-      history.push("/profile", {userData:loginData.data[0]});
+      history.push("/profile", {userData:loginData.data});
     }
   });
 
@@ -101,6 +109,10 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(event) => {
+              const { value } = event.target;
+              setEmail(value);
+            }}
           />
           <TextField
             variant="outlined"
@@ -112,6 +124,10 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(event) => {
+              const { value } = event.target;
+              setPassword(value);
+            }}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -139,6 +155,7 @@ export default function SignIn() {
             </Grid>
           </Grid>
         </form>
+        {loginData.error ? <Alert severity="error">Email o contraseña incorrectos, por favor verifique y pruebe nuevamente.</Alert> : null}
       </div>
       <Box mt={8}>
         <Copyright />
