@@ -11,6 +11,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { InputLabel } from '@material-ui/core';
 //import Image from "material-ui-image";
 
 function Copyright() {
@@ -28,10 +29,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'left'
   },
   avatar: {
     margin: theme.spacing(1),
@@ -48,6 +46,18 @@ const useStyles = makeStyles((theme) => ({
   },
   links: {
       color: '#118ECB',
+  },
+  label:{
+    textAlign: 'left',
+    color: 'black',
+    marginBottom:10
+  },
+  title:{
+    textAlign: 'left'
+  },
+  grid:{
+    backgroundColor: 'white',
+    padding: 20,
   }
 }));
 
@@ -56,10 +66,119 @@ export default function Profile(props) {
   const { userData } = props.location.state;
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="md">
       <CssBaseline />
-      <div className={classes.paper}>
-        {JSON.stringify(userData)}
+      <div>
+        <Typography variant="h4" gutterBottom className={classes.title}>
+          Mi Perfil
+        </Typography>
+        <Grid container alignItems='center' className={classes.grid}>
+          <Grid item md={4}>
+            <InputLabel
+                margin="normal"
+                id="nombrelbl"
+                name="nombrelbl"
+                className={classes.label}
+                margin= 'dense'
+              >
+                Nombre y apellido
+            </InputLabel>
+          </Grid>
+          <Grid item md={8}>
+            <TextField
+                margin="normal"
+                fullWidth
+                id="nombre"
+                label={userData.nombre + ' ' + userData.apellido}
+                name="nombre"
+                disabled
+              />
+          </Grid>
+          <Grid item md={4}>
+            <InputLabel
+                margin="normal"
+                id="nombrelbl"
+                name="nombrelbl"
+                className={classes.label}
+                margin= 'dense'
+              >
+                E-mail
+            </InputLabel>
+          </Grid>
+          <Grid item md={8}>
+            <TextField
+                margin="normal"
+                fullWidth
+                id="nombre"
+                label={userData.email}
+                name="nombre"
+                disabled
+              />
+          </Grid>
+          <Grid item md={4}>
+            <InputLabel
+                margin="normal"
+                id="nombrelbl"
+                name="nombrelbl"
+                className={classes.label}
+                margin= 'dense'
+              >
+                Domicilio
+            </InputLabel>
+          </Grid>
+          <Grid item md={8}>
+            <TextField
+                margin="normal"
+                fullWidth
+                id="nombre"
+                label={userData.calle + ' ' + userData.numero + ' CP. ' + userData.codigoPostal + ' ' + userData.provincia}
+                name="nombre"
+                disabled
+              />
+          </Grid>
+          <Grid item md={4}>
+            <InputLabel
+                margin="normal"
+                id="nombrelbl"
+                name="nombrelbl"
+                className={classes.label}
+                margin= 'dense'
+              >
+                Teléfono
+            </InputLabel>
+          </Grid>
+          <Grid item md={8}>
+            <TextField
+                margin="normal"
+                fullWidth
+                id="nombre"
+                label={userData.telefono}
+                name="nombre"
+                disabled
+              />
+          </Grid>
+          <Grid item md={4}>
+            <InputLabel
+                margin="normal"
+                id="nombrelbl"
+                name="nombrelbl"
+                className={classes.label}
+                margin= 'dense'
+              >
+                Telefono alternativo
+            </InputLabel>
+          </Grid>
+          <Grid item md={8}>
+            <TextField
+                margin="normal"
+                fullWidth
+                id="nombre"
+                label={userData.telefono2}
+                name="nombre"
+                disabled
+              />
+          </Grid>
+        </Grid>
       </div>
       <Box mt={8}>
         <Copyright />
