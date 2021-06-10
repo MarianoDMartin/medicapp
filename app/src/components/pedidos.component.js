@@ -53,7 +53,7 @@ export default function Pedidos(props) {
         <Typography variant="h4" gutterBottom className={classes.title}>
           Pedidos
         </Typography>
-        
+        {JSON.stringify(pedidos)}
       </div>
       <Box mt={8}>
         <Copyright />
