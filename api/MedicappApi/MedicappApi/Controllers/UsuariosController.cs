@@ -1,10 +1,9 @@
-﻿using MedicappApi.Context;
+﻿using Dapper;
 using MedicappApi.Models;
+using MedicappApi.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,26 +13,33 @@ namespace MedicappApi.Controllers
   [ApiController]
   public class UsuariosController : ControllerBase
   {
-    private readonly AppDbContext _context;
+    private readonly IDapper _dapper;
 
-    public UsuariosController(AppDbContext context)
+    public UsuariosController(IDapper dapper)
     {
-      _context = context;
+      _dapper = dapper;
     }
 
     // GET: api/<UsuarioController>
     [HttpGet]
-    public IEnumerable<Usuario> Get()
+    public ActionResult Get()
     {
-      return _context.Usuario.ToList();
+      var result = _dapper.GetAll<Usuario>($"SELECT * FROM Usuario", null, commandType: CommandType.Text);
+      if (result != null)
+        return Ok(result);
+
+      return NotFound(null);
     }
 
     // GET api/<UsuarioController>/5
     [HttpGet("{id}")]
-    public Usuario Get(int id)
+    public ActionResult Get(int id)
     {
-      var usuario = _context.Usuario.FirstOrDefault(x => x.Id == id);
-      return usuario;
+      var result = _dapper.Get<Usuario>($"SELECT * FROM Usuario WHERE Id = {id}", null, commandType: CommandType.Text);
+      if (result != null)
+        return Ok(result);
+
+      return NotFound(null);
     }
 
     // POST api/<UsuarioController>
@@ -42,8 +48,26 @@ namespace MedicappApi.Controllers
     {
       try
       {
-        _context.Usuario.Add(usuario);
-        _context.SaveChanges();
+        string query = @"INSERT INTO 
+                        Usuario (Email, Password, Nombre, Apellido, Calle, Numero, CodigoPostal, Provincia, Telefono, Telefono2) 
+                        VALUES (@Email, @Password, @Nombre, @Apellido, @Calle, @Numero, @CodigoPostal, @Provincia, @Telefono, @Telefono2)";
+
+        var dynParams = new DynamicParameters();
+        dynParams.AddDynamicParams(new 
+        { 
+          usuario.Email, 
+          usuario.Password, 
+          usuario.Nombre, 
+          usuario.Apellido, 
+          usuario.Calle, 
+          usuario.Numero, 
+          usuario.CodigoPostal, 
+          usuario.Provincia, 
+          usuario.Telefono, 
+          usuario.Telefono2 
+        });
+
+        _dapper.Insert<Usuario>(query, dynParams, commandType: CommandType.Text);
         return Ok();
       }
       catch (Exception)
@@ -58,8 +82,34 @@ namespace MedicappApi.Controllers
     {
       if (usuario.Id == id)
       {
-        _context.Entry<Usuario>(usuario).State = EntityState.Modified;
-        _context.SaveChanges();
+        string query = @"UPDATE Usuario SET 
+                        Email = @Email, 
+                        Password = @Password, 
+                        Nombre = @Nombre, 
+                        Apellido = @Apellido, 
+                        Calle = @Calle, 
+                        Numero = @Numero, 
+                        CodigoPostal = @CodigoPostal, 
+                        Provincia = @Provincia, 
+                        Telefono = @Telefono, 
+                        Telefono2 = @Telefono2";                        
+
+        var dynParams = new DynamicParameters();
+        dynParams.AddDynamicParams(new
+        {
+          usuario.Email,
+          usuario.Password,
+          usuario.Nombre,
+          usuario.Apellido,
+          usuario.Calle,
+          usuario.Numero,
+          usuario.CodigoPostal,
+          usuario.Provincia,
+          usuario.Telefono,
+          usuario.Telefono2
+        });
+
+        _dapper.Update<Usuario>(query, dynParams, commandType: CommandType.Text);
         return Ok();
       }
       else
@@ -72,17 +122,13 @@ namespace MedicappApi.Controllers
     [HttpDelete("{id}")]
     public ActionResult Delete(int id)
     {
-      var usuario = _context.Usuario.FirstOrDefault(x => x.Id == id);
-      if (usuario != null)
+      var result = _dapper.Get<Usuario>($"SELECT * FROM Usuario WHERE Id = {id}", null, commandType: CommandType.Text);
+      if (result != null)
       {
-        _context.Usuario.Remove(usuario);
-        _context.SaveChanges();
+        _dapper.Delete<Usuario>($"DELETE Usuario WHERE Id = {id}", null, commandType: CommandType.Text);
         return Ok();
       }
-      else
-      {
-        return NotFound();
-      }
-    }
+      return NotFound(null);
+    }    
   }
 }

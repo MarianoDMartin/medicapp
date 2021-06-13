@@ -1,8 +1,8 @@
-﻿using MedicappApi.Context;
-using MedicappApi.Models;
+﻿using MedicappApi.Models;
+using MedicappApi.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Linq;
-
 
 namespace MedicappApi.Controllers
 {
@@ -10,26 +10,23 @@ namespace MedicappApi.Controllers
   [ApiController]
   public class LoginController : ControllerBase
   {
-    private readonly AppDbContext _context;
+    private readonly IDapper _dapper;
 
-    public LoginController(AppDbContext context)
+    public LoginController(IDapper dapper)
     {
-      _context = context;
+      _dapper = dapper;
     }
 
     // POST api/<UsuarioController>
     [HttpPost]
     public ActionResult Post([FromBody] Usuario usuarioLogin)
     {
-      var usuario = _context.Usuario.FirstOrDefault(x => x.Email == usuarioLogin.Email && x.Password == usuarioLogin.Password);
-      if (usuario != null)
-      {
+      //var usuario = _dapper.Get<Usuario>(x => x.Email == usuarioLogin.Email && x.Password == usuarioLogin.Password);
+      var usuario = _dapper.Get<Usuario>($"SELECT * FROM Usuario WHERE Email = '{usuarioLogin.Email}' AND Password = '{usuarioLogin.Password}'", null, commandType: CommandType.Text);
+      if (usuario != null)      
         return Ok(usuario);
-      }
-      else
-      {
-        return NotFound(null);
-      }         
+      
+      return NotFound(null);
     }
   }
 }

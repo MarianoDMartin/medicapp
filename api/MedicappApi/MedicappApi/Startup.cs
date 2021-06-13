@@ -1,4 +1,4 @@
-using MedicappApi.Context;
+using MedicappApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -27,8 +27,11 @@ namespace MedicappApi
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
       services.AddControllers();
+      services.AddDbContext<DataContext.AppContext>(options =>
+                          options.UseSqlServer(
+                              Configuration.GetConnectionString("DefaultConnection")));
+      services.AddScoped<IDapper, Dapperr>();
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "MedicappApi", Version = "v1" });
@@ -42,8 +45,8 @@ namespace MedicappApi
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
-        app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MedicappApi v1"));
+        //app.UseSwagger();
+        //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MedicappApi v1"));
       }
 
       app.UseRouting();
@@ -58,3 +61,9 @@ namespace MedicappApi
     }
   }
 }
+
+/*config.Routes.MapHttpRoute(
+    name: "FolderChildrenApi",
+    routeTemplate: "api/folders/{folderID}/children",
+    defaults: new { controller = "Folders", action = "GetChildFolders" }
+);*/
