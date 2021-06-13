@@ -62,7 +62,6 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
 
   function loginCall(){
-    debugger;
     const data = {
       email,
       password
