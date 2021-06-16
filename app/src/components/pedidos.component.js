@@ -4,7 +4,8 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { NavBar, Copyright } from './common.component'
+import { NavBar, Copyright } from './common.component';
+import Elemento from './elemento.component';
 
 const useStyles = makeStyles((theme) => ({
   title:{
@@ -41,7 +42,11 @@ export default function Pedidos(props) {
         <Typography variant="h4" gutterBottom className={classes.title}>
           Pedidos
         </Typography>
-        {JSON.stringify(pedidos)}
+        {pedidos.map(pedido => {
+          return (
+            <Elemento data={pedido}/>
+          )
+        })}
       </div>
       <Box mt={8}>
         <Copyright />
