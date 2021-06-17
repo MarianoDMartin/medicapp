@@ -1,0 +1,28 @@
+INSERT INTO CategoriaElemento(descripcion)
+VALUES('Ortopedia')
+
+INSERT INTO Elemento(descripcion,categoriaElementoId)
+VALUES('Muletas', 1)
+
+INSERT INTO EstadoOperacion(descripcion)
+VALUES('Activa')
+
+INSERT INTO TipoOperacion(descripcion)
+VALUES('pedido')
+INSERT INTO TipoOperacion(descripcion)
+VALUES('donacion')
+
+INSERT INTO Operacion(usuarioId,elementoId,estadoOperacionId,tipoOperacionId,fechaInicio,comentarios)
+VALUES (1,1,1,1,'20120618 10:34:09 AM','Necesito 2 muletas urgente')
+
+INSERT INTO Operacion(usuarioId,elementoId,estadoOperacionId,tipoOperacionId,fechaInicio,comentarios)
+VALUES (2,1,1,1,'20120616 10:34:09 AM','Necesito 1 muleta')
+
+INSERT INTO Operacion(usuarioId,elementoId,estadoOperacionId,tipoOperacionId,fechaInicio,comentarios)
+VALUES (1,1,1,1,'20120614 10:34:09 AM','Necesito 4 muletas')
+
+INSERT INTO Operacion(usuarioId,elementoId,estadoOperacionId,tipoOperacionId,fechaInicio,comentarios)
+VALUES (1,1,1,2,'20120613 10:34:09 AM','Regalo 2 muletas que ya no uso')
+
+INSERT INTO Operacion(usuarioId,elementoId,estadoOperacionId,tipoOperacionId,fechaInicio,comentarios)
+VALUES (2,1,1,2,'20120612 10:34:09 AM','Regalo muleta')

@@ -87,7 +87,7 @@ export default function SignIn() {
 
   useEffect(()=>{
     if(loginData.isSuccess){
-      history.push("/profile", {userData:loginData.data});
+      history.push("/profile", { userData:loginData.data });
     }
   });
 
@@ -95,7 +95,6 @@ export default function SignIn() {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        {/* <Image src="/assets/img/logo.png"/> */}
         <Avatar variant="square" src="/assets/img/logo.png" className={classes.avatar} />
         <form className={classes.form} noValidate>
           <TextField

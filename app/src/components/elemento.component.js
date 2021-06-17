@@ -22,7 +22,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   link: {
-    margin: theme.spacing(1, 1.5),
+    color: 'blue',
+    textDecoration: 'underline',
+    borderBottom: "1px solid rgba(0, 0, 0, 0.1)"
   },
   root: {
     flexGrow: 1,
@@ -44,9 +46,12 @@ const useStyles = makeStyles((theme) => ({
   },
   element: {
     backgroundColor: 'white',
-    //order: "1px solid grey",
     borderRadius: '15px',
-    marginTop: 20
+    marginTop: 20,
+    textAlign: 'left',
+  },
+  borderBottom: {
+    borderBottom: "1px solid rgba(0, 0, 0, 0.1)"
   }
 }));
 
@@ -56,7 +61,6 @@ export default function Elemento(props) {
   const classes = useStyles();
   const {data} = props;
 
-    debugger;
   return (
     <Grid container spacing={2} className={classes.element} border={1}>
         <Grid item>
@@ -66,40 +70,46 @@ export default function Elemento(props) {
         </Grid>
         <Grid item xs={12} sm container>
             <Grid item xs container spacing={2}>
-                <Grid item md={9}>
-                    <Typography gutterBottom variant="subtitle1">
+                <Grid item md={9} className={classes.borderBottom}>
+                    <Typography variant="subtitle1">
                         {data.elemento}
                     </Typography>
                 </Grid>
-                <Grid item md={3}>
-                    <Typography gutterBottom variant="subtitle1">
-                        {data.elemento}
+                <Grid item md={3} className={classes.link}>
+                    <Typography variant="subtitle1">
+                        {data.usuario.nombre + ' ' + data.usuario.apellido}
                     </Typography>
                 </Grid>
-                <Grid item md={9}>
-                    <Typography gutterBottom variant="subtitle1">
-                        {data.elemento}
+                <Grid item md={6} className={classes.borderBottom}>
+                    <Typography variant="subtitle1">
+                        Fecha de publicación
                     </Typography>
                 </Grid>
-                <Grid item md={3}>
-                    <Typography gutterBottom variant="subtitle1">
-                        {data.elemento}
+                <Grid item md={6} className={classes.borderBottom}>
+                    <Typography variant="body1" color="textSecondary">
+                        {Moment(data.fechaInicio).format("DD/MM/YYYY")}
                     </Typography>
                 </Grid>
-                    
-                    {/* <Grid container>
-                        <Grid item>
-                            <Typography variant="body2" gutterBottom>
-                                Fecha de publicación
-                            </Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="body2" color="textSecondary">
-                                {Moment(data.fechaInicio).format("DD/MM/YYYY")}
-                            </Typography>
-                        </Grid>
-                    </Grid> */}
-                    
+                <Grid item md={6} className={classes.borderBottom}>
+                    <Typography variant="subtitle1">
+                        Detalles
+                    </Typography>
+                </Grid>
+                <Grid item md={6} className={classes.borderBottom}>
+                    <Typography variant="body1" color="textSecondary">
+                        {data.comentarios}
+                    </Typography>
+                </Grid>
+                <Grid item md={6}>
+                    <Typography variant="subtitle1">
+                        Ubicación
+                    </Typography>
+                </Grid>
+                <Grid item md={6}>
+                    <Typography variant="body1" color="textSecondary">
+                        {data.usuario.provincia}
+                    </Typography>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

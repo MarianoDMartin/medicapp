@@ -13,25 +13,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Pedidos(props) {
+export default function Donaciones(props) {
   const classes = useStyles();
   const { userData } = props.location.state;
-  const [pedidos, setPedidos] = useState([]);
+  const [donaciones, setDonaciones] = useState([]);
 
-  function pedidosCall(){
-    fetch("http://localhost:5000/api/pedidos")
+  function donacionesCall(){
+    fetch("http://localhost:5000/api/donaciones")
       .then(res => res.json())
       .then(
         result => {
-          setPedidos(result);
+          setDonaciones(result);
         }
       );
   }
 
   useEffect(()=>{
-    pedidosCall();
+    donacionesCall();
   },[]);
-  
+
   return (
     <Container component="main" maxWidth="md">
       <CssBaseline />
@@ -40,11 +40,11 @@ export default function Pedidos(props) {
       />
       <div>
         <Typography variant="h4" gutterBottom className={classes.title}>
-          Pedidos
+          Donaciones
         </Typography>
-        {pedidos.map(pedido => {
+        {donaciones.map(donacion => {
           return (
-            <Elemento data={pedido}/>
+            <Elemento data={donacion}/>
           )
         })}
       </div>

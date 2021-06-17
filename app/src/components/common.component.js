@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { useHistory } from 'react-router-dom';
+import Avatar from '@material-ui/core/Avatar';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -20,6 +22,11 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     margin: theme.spacing(1, 1.5),
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    height: 50,
+    width: 200
   },
 }));
 
@@ -43,21 +50,26 @@ export function NavBar(props) {
   return (
     <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        <nav>
-          <Link variant="button" color="textPrimary" onClick={ ()=> history.push("/pedidos", props)} className={classes.link}>
-            Pedidos
-          </Link>
-          <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-            Donaciones
-          </Link>
-        </nav>
-        <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-          MEDICAPP
-        </Typography>
-        
-        <Button href="#" color="primary" variant="outlined" className={classes.link}>
-          {props.nombre}
-        </Button>
+        <Grid container alignItems='center' className={classes.grid}>
+          <Grid item md={5}>
+            <nav>
+              <Link variant="button" color="textPrimary" onClick={ ()=> history.push("/pedidos", props)} className={classes.link}>
+                Pedidos
+              </Link>
+              <Link variant="button" color="textPrimary" onClick={ ()=> history.push("/donaciones", props)}className={classes.link}>
+                Donaciones
+              </Link>
+            </nav>
+          </Grid>
+          <Grid item md={4}>
+            <Avatar variant="square" src="/assets/img/logo.png" className={classes.avatar} onClick={ ()=> history.push("/sign-in", props)}/>
+          </Grid>
+          <Grid item md={3}>
+            <Button color="primary" variant="outlined" onClick={ ()=> history.push("/profile", props)} className={classes.link}>
+              {props.userData.nombre}
+            </Button>
+          </Grid>
+        </Grid>
       </Toolbar>
     </AppBar>
   );

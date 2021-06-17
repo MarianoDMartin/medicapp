@@ -51,7 +51,7 @@ export default function Profile(props) {
     <Container component="main" maxWidth="md">
       <CssBaseline />
       <NavBar 
-        nombre={userData.nombre}  
+        userData={userData}  
       />
       <div>
         <Typography variant="h4" gutterBottom className={classes.title}>
