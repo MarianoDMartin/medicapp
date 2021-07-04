@@ -5,7 +5,10 @@ import Profile from "./components/profile.component";
 import Pedidos from "./components/pedidos.component";
 import React from 'react';
 import Donaciones from './components/donaciones.component';
-
+import MisDonaciones from './components/misDonaciones.component';
+import MisPedidos from './components/mispedidos.component';
+import CrearPedido from './components/crearPedido.component';
+import CrearDonacion from './components/crearDonacion.component';
 class App extends React.Component {
 
   render() {
@@ -20,6 +23,10 @@ class App extends React.Component {
                 <Route path="/profile" component={Profile} />
                 <Route path="/pedidos" component={Pedidos} />
                 <Route path="/donaciones" component={Donaciones} />
+                <Route path="/misdonaciones" component={MisDonaciones} />
+                <Route path="/mispedidos" component={MisPedidos} />
+                <Route path="/crearpedido" component={CrearPedido} />
+                <Route path="/creardonacion" component={CrearDonacion} />
               </Switch>
             </div>
           </div>

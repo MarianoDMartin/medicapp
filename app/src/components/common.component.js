@@ -8,6 +8,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -46,6 +48,15 @@ export function Copyright() {
 export function NavBar(props) {
   let history = useHistory();
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
@@ -62,12 +73,24 @@ export function NavBar(props) {
             </nav>
           </Grid>
           <Grid item md={4}>
-            <Avatar variant="square" src="/assets/img/logo.png" className={classes.avatar} onClick={ ()=> history.push("/sign-in", props)}/>
+            <Avatar variant="square" src="/assets/img/logo.png" className={classes.avatar} />
           </Grid>
           <Grid item md={3}>
-            <Button color="primary" variant="outlined" onClick={ ()=> history.push("/profile", props)} className={classes.link}>
+            <Button color="primary" variant="outlined" onClick={handleClick} className={classes.link}>
               {props.userData.nombre}
             </Button>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={()=> history.push("/profile", props)}>Perfil</MenuItem>
+              <MenuItem onClick={()=> history.push("/misdonaciones", props)}>Mis Donaciones</MenuItem>
+              <MenuItem onClick={()=> history.push("/mispedidos", props)}>Mis Pedidos</MenuItem>
+              <MenuItem onClick={()=> history.push("/sign-in", props)}>Salir</MenuItem>
+            </Menu>
           </Grid>
         </Grid>
       </Toolbar>
