@@ -2,7 +2,7 @@
 
 namespace MedicappApi.Models
 {
-  public class OperacionGet
+  public class OperacionCrud
   {
     public int Id { get; set; }
 
@@ -10,7 +10,9 @@ namespace MedicappApi.Models
 
     public string Comentarios { get; set; }
 
-    public string Elemento { get; set; }
+    public int ElementoId { get; set; }
+
+    public string ElementoDescripcion { get; set; }
 
     public string Imagen { get; set; }
 

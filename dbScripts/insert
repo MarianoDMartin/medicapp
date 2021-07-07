@@ -1,8 +1,11 @@
 INSERT INTO CategoriaElemento(descripcion)
 VALUES('Ortopedia')
 
-INSERT INTO Elemento(descripcion,categoriaElementoId)
-VALUES('Muletas', 1)
+INSERT INTO Elemento(descripcion,categoriaElementoId,imagen)
+VALUES('Muletas', 1, 'https://drive.google.com/uc?export=view&id=1CGrG0c-Ddl4AIpbSOWHhr7wvI0tKe4Bu')
+
+INSERT INTO Elemento(descripcion,categoriaElementoId,imagen)
+VALUES('Silla de Ruedas', 1, 'https://drive.google.com/uc?export=view&id=1rv4ZtZCv4XVN8-xOwRzb-GObpXq623YB')
 
 INSERT INTO EstadoOperacion(descripcion)
 VALUES('Activa')
