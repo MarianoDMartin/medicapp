@@ -23,7 +23,7 @@ export default function Pedidos(props) {
   let history = useHistory();
 
   function misPedidosCall(){
-    fetch("http://localhost:5000/api/pedidos")
+    fetch(`http://localhost:5000/api/pedidos?usuarioid=${userData.id}`) 
       .then(res => res.json())
       .then(
         result => {

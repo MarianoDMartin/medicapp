@@ -1,11 +1,6 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import { useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Moment from 'moment';
@@ -57,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Elemento(props) {
-  let history = useHistory();
   const classes = useStyles();
   const {data} = props;
 
@@ -65,7 +59,7 @@ export default function Elemento(props) {
     <Grid container spacing={2} className={classes.element} border={1}>
         <Grid item>
             <ButtonBase className={classes.image}>
-                <img className={classes.img} alt="complex" src="https://www.farmaciasrp.com.ar/4291-thickbox_default/muletas-de-aluminio-regulable-ch-med-gde-el-par.jpg" />
+                <img className={classes.img} alt="complex" src={data.imagen} />
             </ButtonBase>
         </Grid>
         <Grid item xs={12} sm container>

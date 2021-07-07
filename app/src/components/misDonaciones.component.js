@@ -21,9 +21,8 @@ export default function Donaciones(props) {
   const { userData } = props.location.state;
   const [donaciones, setDonaciones] = useState([]);
   let history = useHistory();
-
   function misDonacionesCall(){
-    fetch("http://localhost:5000/api/donaciones") //TODO: modify request to get mis donaciones
+    fetch(`http://localhost:5000/api/donaciones?usuarioid=${userData.id}`) //TODO: modify request to get mis donaciones
       .then(res => res.json())
       .then(
         result => {

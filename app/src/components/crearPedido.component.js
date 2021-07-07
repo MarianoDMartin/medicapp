@@ -56,29 +56,20 @@ export default function CrearPedido(props) {
   let history = useHistory();
 
   function obtenerElementosCall(){
-    // fetch("http://localhost:8080/elementos")
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     setElementos(res)
-    //   })
-    const response = [
-      { elementoId: 1,
-        descripcion: "Muletas"},
-      {
-        elementoId: 2,
-        descripcion: "Silla de ruedas"
-      }
-    ]
-    setElementos(response);
+    fetch("http://localhost:5000/api/elementos")
+      .then(res => res.json())
+      .then(res => {
+        setElementos(res)
+      })
   }
 
   function crearPedidoCall(){
     const data = {
-      usuarioId: userData.usuarioId,
+      usuarioId: userData.id,
       elementoId: elemento,
       comentarios
     }
-    fetch("http://localhost:5000/api/pedido", {
+    fetch("http://localhost:5000/api/pedidos", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -121,7 +112,7 @@ export default function CrearPedido(props) {
             >
               {elementos && elementos.map(item => {
                 return (
-                  <MenuItem value={item.elementoId}>{item.descripcion}</MenuItem>
+                  <MenuItem value={item.id}>{item.descripcion}</MenuItem>
                 )
               })}
             </Select>
